@@ -1,25 +1,37 @@
 # TO-DO: Complete the selection_sort() function below
 def selection_sort( arr ):
     # loop through n-1 elements
-    hold = [arr[0]]
-    loops = 0
-    for i in range(0, len(arr) - 1):
+    for i in range(0, len(arr)): # - 1 keeps this from compleeting loop
         cur_index = i
         smallest_index = cur_index
-        start_len = len(hold)
-        print(f"hold:{hold}")
-        #print(f"len:{len(hold)}")
+        print(arr)
         # TO-DO: find next smallest element
-        #print(i)
-        #print(len(hold))
-        if hold[len(hold) - 1] > arr[cur_index]:
-            hold.append(arr[cur_index])
-
-        print(f"len 2:{len(hold)}")
+        print(f"testing: {arr[i]}")
+        if arr[i] < arr[i-1]:
+            print(f"next smallest element: {arr[i]}")
 
         # (hint, can do in 3 loc)
 
         # TO-DO: swap
+            kill = 0
+            if arr[i] < arr[0] or i == 0: # 0 to prevent duping the first
+                print("would swap all the way down")
+                arr.insert(0, arr[i])
+                arr.pop(i+1)
+            else:
+                while kill < len(arr):
+                    if arr[i] > arr[i - kill]:
+                        print(f"lower match: {arr[i - kill]}")
+                        arr.insert(i - kill + 1, arr[i])
+                        arr.pop(i+1)
+                        kill = len(arr) + 5
+                    #kill = len(arr) + 5
+                    kill += 1
+
+            if i == len(arr):
+                pass
+
+        """
         kill = 0
         if len(hold) > start_len:
             print("would swap all the way down")
@@ -46,17 +58,16 @@ def selection_sort( arr ):
             #hold.pop(len(hold) - 1)
             #if hold[len(hold) - 2] < hold[len(hold) - 3] and len(hold) > 2:
             #    print("move me down")
-
-
+            """
 
     #arr = hold
     return arr
-
-test = [7,4,1,8,0,5,2,9,6,3]
+"""
+test = [1, 5, 8, 4, 2, 9, 6, 0, 3, 7]
 print(selection_sort( test ))
 if len(test) > 0:
     print(test[len(test) - 1])
-
+"""
 # TO-DO:  implement the Bubble Sort function below
 def bubble_sort( arr ):
 
