@@ -83,10 +83,10 @@ def bubble_sort( arr ):
                 run_loop += 1
 
     return arr
-
+"""
 test = [1, 5, 8, 4, 2, 9, 6, 0, 3, 7]
 print(bubble_sort( test ))
-
+"""
 # STRETCH: implement the Count Sort function below
 def count_sort( arr, maximum=-1 ):
 
