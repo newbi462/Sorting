@@ -3,11 +3,14 @@ def merge( arrA, arrB ):
     elements = len( arrA ) + len( arrB )
     merged_arr = [0] * elements
     hold = []
-    print(arrA)
-    print(arrB)
+    print(f"arrA:{arrA}")
+    print(f"arrB:{arrB}")
     # TO-DO
     # print(elements)
+    #hold = arrA
+    kill = False
     for i in range(0, len(arrA)):
+        #print(i)
         if arrA[i] < arrB[i]:
             hold.append(arrA[i])
             hold.append(arrB[i])
@@ -18,26 +21,63 @@ def merge( arrA, arrB ):
             hold.append(arrA[i])
             #merged_arr.pop(i+2)
             #merged_arr.pop(i+3)
+        if i == len(arrA)-1:
+            if len(arrB) > len(arrA):
+                for foo in range(0, len(hold)):
+                    if hold[foo] > arrB[i+1] and kill == False:
+                        hold.insert(i, arrB[i+1])
+                        kill = True
+                    if foo == len(hold) - 1 and kill == False:
+                        hold.append(arrB[i+1])
 
+                #hold.append(arrB[i+1])
+                #print("i ran")
+        if len(hold) == len(merged_arr):
+            run_loop = 0
+            while run_loop < len(hold):
+                for i in range(0, len(hold)-1):
+                    #print(hold)
+                    if hold[i+1] < hold[i]:
+                        #print(f"move: {hold[i+1]}")
+                        hold.insert(i, hold[i+1])
+                        hold.pop(i+2)
+                        run_loop = 0
+                    else:
+                        run_loop += 1
+
+
+    print(f"Hold: {hold}")
     #return merged_arr
+    #return sorted(hold)
     return hold
 
 
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort( arr ):
     # TO-DO
-    print(arr)
-    find_middle = len(arr) // 2 # // removes the float
-    #print(find_middle)
-    arrA = arr[:find_middle] # : slices left rightr
-    arrB = arr[find_middle:]
-    print(f"Merged: {merge( arrA, arrB )}")
+    if len(arr) < 1:
+        return arr
+    else:
+        if(len(arr) == 1):
+            return arr
 
-    return arr
+        else:
+            find_middle = len(arr) // 2
+            half1 = arr[:find_middle]
+            half2 = arr[find_middle:]
+
+            half1 = merge_sort(half1)
+            half2 = merge_sort(half2)
+
+            print(f"Merged: {merge( half1, half2 )}")
+            return merge(half1, half2)
+
+    #return arr
 
 
 test = [1, 5, 8, 4, 2, 9, 6, 0, 3, 7]
 print(merge_sort( test ))
+print(sorted(test))
 
 # STRETCH: implement an in-place merge sort algorithm
 def merge_in_place(arr, start, mid, end):
